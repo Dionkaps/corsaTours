@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'thesi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});
@@ -9,6 +9,28 @@ class Corsa extends StatefulWidget {
 }
 
 class _CorsaState extends State<Corsa> {
+  addStringToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstTime', true);
+  }
+
+  asfs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    bool boolValue = prefs.getBool('firstTime') ?? true;
+    print(boolValue);
+  }
+
+  void callback() {
+    setState(() {});
+  }
+
+  String name = 'kapkap';
+  String seatName1 = '1';
+  String seatName2 = '2';
+  String seatName3 = '3';
+  String seatName4 = '4';
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -32,8 +54,8 @@ class _CorsaState extends State<Corsa> {
                 padding: const EdgeInsets.only(
                     top: 45, bottom: 23, left: 20, right: 20),
                 child: Row(
-                  children: const <Widget>[
-                    Expanded(
+                  children: <Widget>[
+                    const Expanded(
                         child: Padding(
                       padding: EdgeInsets.only(left: 5, right: 5),
                       child: SizedBox(
@@ -58,8 +80,28 @@ class _CorsaState extends State<Corsa> {
                       ),
                     )),
                     Expanded(
-                        child: Thesi(
-                      passengerName: 'kapkap',
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: SizedBox(
+                        height: 160,
+                        child: DecoratedBox(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(21, 0, 128, 255),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  seatName1,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )),
+                          ),
+                        ),
+                      ),
                     ))
                   ],
                 ),
@@ -67,18 +109,83 @@ class _CorsaState extends State<Corsa> {
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
-                  children: const <Widget>[
+                  children: <Widget>[
                     Expanded(
-                        child: Thesi(
-                      passengerName: 'Valia',
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: SizedBox(
+                        height: 160,
+                        child: DecoratedBox(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(21, 0, 128, 255),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: TextButton(
+                            onPressed: () {
+                              addStringToSF();
+                              setState(() {
+                                seatName2 = name;
+                              });
+                            },
+                            child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  seatName2,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )),
+                          ),
+                        ),
+                      ),
                     )),
                     Expanded(
-                        child: Thesi(
-                      passengerName: 'Thomas',
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: SizedBox(
+                        height: 160,
+                        child: DecoratedBox(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(21, 0, 128, 255),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  seatName3,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )),
+                          ),
+                        ),
+                      ),
                     )),
                     Expanded(
-                        child: Thesi(
-                      passengerName: 'Mitsos',
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: SizedBox(
+                        height: 160,
+                        child: DecoratedBox(
+                          decoration: const BoxDecoration(
+                              color: Color.fromARGB(21, 0, 128, 255),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  seatName4,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )),
+                          ),
+                        ),
+                      ),
                     ))
                   ],
                 ),

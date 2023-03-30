@@ -3,6 +3,7 @@ import 'corsa.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool boolValue = true;
 void main() {
   runApp(const MyApp());
 }
@@ -27,13 +28,23 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  void callback() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+
+    setState(() {
+      boolValue = prefs.getBool('firstTime') ?? true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    if (true) {
-      return Corsa();
+    if (boolValue) {
+      return Login(
+        callback: callback,
+      );
     } else {
-      return Login();
+      return Corsa();
     }
   }
 }
