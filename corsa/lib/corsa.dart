@@ -188,7 +188,7 @@ class _CorsaState extends State<Corsa> {
                                   BorderRadius.all(Radius.circular(15))),
                           child: TextButton(
                             onPressed: () {
-                              _isButtonDisabled3 || _exeiKleisei
+                              _isButtonDisabled3
                                   ? null
                                   : Blurry.info(
                                       popupHeight: 200,
