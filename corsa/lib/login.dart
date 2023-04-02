@@ -1,23 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:motion_toast/motion_toast.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   final VoidCallback callback;
   const Login({required this.callback, super.key});
 
   @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController _nameController = TextEditingController();
+  bool boolValue = true;
+  @override
   Widget build(BuildContext context) {
-    bool boolValue = true;
-    addStringToSF() async {
+    firstTimeFunc() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('firstTime', false);
     }
 
-    asfs() async {
+    void asfs() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       //Return bool
-      boolValue = prefs.getBool('firstTime') ?? true;
+      boolValue = prefs.getBool('firstTime') ?? false;
       print(boolValue);
+    }
+
+    void saveName(String uname) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('username', uname);
+    }
+
+    void getUsername() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //Return String
+      String username = prefs.getString('username').toString();
+      print(username);
     }
 
     double height = MediaQuery.of(context).size.height;
@@ -45,6 +64,7 @@ class Login extends StatelessWidget {
                 child: SizedBox(
                   width: 300,
                   child: TextField(
+                    controller: _nameController,
                     cursorHeight: 20,
                     decoration: InputDecoration(
                         filled: true,
@@ -69,8 +89,18 @@ class Login extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: TextButton(
                       onPressed: () {
-                        addStringToSF();
-                        callback();
+                        if (_nameController.text.trim() == '') {
+                          MotionToast.error(
+                                  title: Text("Error"),
+                                  description: Text("Vale username stoke"),
+                                  displaySideBar: false)
+                              .show(context);
+                          FocusScope.of(context).unfocus();
+                        } else {
+                          firstTimeFunc();
+                          saveName(_nameController.text.toString());
+                          widget.callback();
+                        }
                       },
                       child: const FittedBox(
                           fit: BoxFit.fitWidth,
@@ -87,7 +117,7 @@ class Login extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  asfs();
+                  getUsername();
                 },
                 child: const FittedBox(
                     fit: BoxFit.fitWidth,

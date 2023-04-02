@@ -4,7 +4,7 @@ import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool boolValue = true;
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -37,14 +37,31 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  Future<bool> boolValueMethod() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    bool boolValue = prefs.getBool('firstTime') ?? true;
+    return boolValue;
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (boolValue) {
-      return Login(
-        callback: callback,
-      );
-    } else {
-      return Corsa();
-    }
+    return FutureBuilder<bool>(
+      future: boolValueMethod(),
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.hasData) {
+          bool boolValue = snapshot.data!;
+          if (boolValue) {
+            return Login(
+              callback: callback,
+            );
+          } else {
+            return Corsa();
+          }
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
