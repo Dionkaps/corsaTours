@@ -18,15 +18,15 @@ class _CorsaState extends State<Corsa> {
               children: [
           Row(
             children: [
-              Expanded(child: Seat()),
-              Expanded(child: Seat()),
+              Expanded(child: Seat(doc_thesi: 'thesi1',)),
+              Expanded(child: Seat(doc_thesi: 'thesi1',)),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Seat()),
-              Expanded(child: Seat()),
-              Expanded(child: Seat())
+              Expanded(child: Seat(doc_thesi: 'thesi2',)),
+              Expanded(child: Seat(doc_thesi: 'thesi3',)),
+              Expanded(child: Seat(doc_thesi: 'thesi4',))
             ],
           )
               ],
