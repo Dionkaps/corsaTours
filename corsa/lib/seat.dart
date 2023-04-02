@@ -1,9 +1,12 @@
 import 'dart:async';
-
+import 'package:blurry/blurry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+bool? ekleisaBool;
 
 class Seat extends StatefulWidget {
   final String doc_thesi;
@@ -24,9 +27,21 @@ class _SeatState extends State<Seat> {
     username = prefs.getString('username').toString();
   }
 
+  Future<void> ekleisa() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('ekleisa', true);
+  }
+
+  Future<void> getekleisa() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return bool
+    ekleisaBool = prefs.getBool('ekleisa');
+  }
+
   @override
   void initState() {
     getUsername();
+    getekleisa();
     // TODO: implement initState
     super.initState();
   }
@@ -71,16 +86,45 @@ class _SeatState extends State<Seat> {
                         ),
                       )),
                   onPressed: () {
-                    final docasa = FirebaseFirestore.instance
-                        .collection('kratiseis')
-                        .doc(widget.doc_thesi);
-                    docasa.update({
-                      'name': username,
-                    });
+                    print(ekleisaBool.toString());
+                    if (ekleisaBool == false || ekleisaBool == null) {
+                      Blurry.success(
+                          title: 'Confirm',
+                          description: 'Eisai sigouros?',
+                          confirmButtonText: 'Confirm',
+                          onConfirmButtonPressed: () {
+                            ekleisa();
+                            final docasa = FirebaseFirestore.instance
+                                .collection('kratiseis')
+                                .doc(widget.doc_thesi);
+                            docasa.update({
+                              'name': username,
+                            });
 
-                    docasa.update({
-                      'taken': true,
-                    });
+                            docasa.update({
+                              'taken': true,
+                            });
+                            final auksisi = FirebaseFirestore.instance
+                                .collection('users')
+                                .doc('names');
+                            auksisi.update({
+                              username: FieldValue.increment(1),
+                            });
+                            getekleisa();
+                            Navigator.pop(context);
+                            MotionToast.success(
+                              title: Text("Success"),
+                              description: Text("Xrwstas cafe"),
+                              displaySideBar: false,
+                            ).show(context);
+                          }).show(context);
+                    } else if (ekleisaBool == true) {
+                      MotionToast.error(
+                        title: Text("Error"),
+                        description: Text("Exeis kleisei hdh stoke"),
+                        displaySideBar: false,
+                      ).show(context);
+                    }
                   }),
             ),
           );

@@ -41,6 +41,19 @@ class _LoginState extends State<Login> {
       print(username);
     }
 
+    Future<void> writeDataToFirestore(String username) async {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      try {
+        await firestore.collection('users').doc('names').set({
+          username: 0,
+        }, SetOptions(merge: true));
+        print('Data added to Firestore');
+      } catch (e) {
+        print('Error adding data to Firestore: $e');
+      }
+    }
+
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -102,6 +115,7 @@ class _LoginState extends State<Login> {
                         } else {
                           firstTimeFunc();
                           saveName(_nameController.text.toString());
+                          writeDataToFirestore(_nameController.text.toString());
                           widget.callback();
                         }
                       },
@@ -117,20 +131,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-              ),
-              TextButton(
-                onPressed: () {
-                  getUsername();
-                },
-                child: const FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color.fromARGB(255, 39, 37, 37)),
-                    )),
               ),
             ],
           ),
