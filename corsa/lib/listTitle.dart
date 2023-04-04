@@ -23,7 +23,7 @@ class ListTitle extends StatelessWidget {
                         title: Text(
                      'Username',
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ))),
               ],
             ),
@@ -40,7 +40,7 @@ class ListTitle extends StatelessWidget {
                           textAlign: TextAlign.center,
                           'Total Rides',
                           style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold)),
+                              fontSize: 25, fontWeight: FontWeight.bold)),
                     )),
               ],
             ),

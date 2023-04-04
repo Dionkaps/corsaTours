@@ -47,7 +47,7 @@ class _CorsaState extends State<Corsa> {
             ],
           ),
           Padding(padding: EdgeInsets.only(top: 70), child: ListTitle()),
-          UsersData()
+          Expanded(child: UsersData())
         ],
       ),
     ));
