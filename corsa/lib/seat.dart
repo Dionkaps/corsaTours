@@ -114,10 +114,10 @@ class _SeatState extends State<Seat> {
                               'taken': true,
                             });
                             final auksisi = FirebaseFirestore.instance
-                                .collection('users')
+                                .collection('corsaUsers')
                                 .doc(username);
                             auksisi.update({
-                              username: FieldValue.increment(1),
+                              'kourses': FieldValue.increment(1),
                             });
                             getekleisa();
                             Navigator.pop(context);

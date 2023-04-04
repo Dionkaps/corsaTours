@@ -43,28 +43,14 @@ class _LoginState extends State<Login> {
 
     createUser(String fbusername) {
       DocumentReference documentReference =
-          FirebaseFirestore.instance.collection("users").doc(fbusername);
+          FirebaseFirestore.instance.collection("corsaUsers").doc(fbusername);
 
-      Map<String, int> usernames = {fbusername: 0};
+      Map<String, dynamic> usernames = {'name': fbusername,'kourses': 0};
 
       documentReference.set(usernames).whenComplete(() {
         print("$fbusername Created");
       });
     }
-
-    Future<void> writeDataToFirestore(String username) async {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      try {
-        await firestore.collection('users').doc('names').set({
-          username: 0,
-        }, SetOptions(merge: true));
-        print('Data added to Firestore');
-      } catch (e) {
-        print('Error adding data to Firestore: $e');
-      }
-    }
-
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(

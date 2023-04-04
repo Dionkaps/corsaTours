@@ -30,7 +30,7 @@ class _LeaderboardState extends State<Leaderboard> {
   Widget build(BuildContext context) {
     return StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection("users")
+              .collection("corsaUsers")
               .snapshots(),
           builder: (context, snapshots) {
             return ListView.builder(
@@ -39,29 +39,15 @@ class _LeaderboardState extends State<Leaderboard> {
               itemBuilder: (context, index) {
                 DocumentSnapshot documentSnapshot =
                     (snapshots.data!).docs[index];
-                return Dismissible(
-                    onDismissed: (direction) {
-                      
-                    },
-                    key: Key(documentSnapshot["koukoz"]),
+                return Container(
+                    key: Key(documentSnapshot["name"]),
                     child: Card(
-                      elevation: 3,
+                      elevation: 0,
                       margin: const EdgeInsets.all(5),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(10)),
                       child: ListTile(
-                        title: Text(documentSnapshot["koukoz"]),
-                        trailing: IconButton(
-                          icon: const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
+                        title: Text(documentSnapshot["name"] + documentSnapshot["kourses"].toString()),
                       ),
                     ));
               },

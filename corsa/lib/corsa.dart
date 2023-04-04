@@ -45,7 +45,7 @@ class _CorsaState extends State<Corsa> {
               ))
             ],
           ),
-          Leaderboard()
+          Expanded(child: Leaderboard())
         ],
       ),
     ));
