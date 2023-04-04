@@ -38,28 +38,33 @@ class _UsersDataState extends State<UsersData> {
             DocumentSnapshot documentSnapshot = (snapshots.data!).docs[index];
             return Container(
                 key: Key(documentSnapshot["name"]),
-                child: Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Expanded(
+                child: Column(children: [
+                  Card(
+                    color: Color.fromARGB(41, 33, 149, 243),
+                    elevation: 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Align(
                                   alignment: Alignment.center,
                                   child: ListTile(
-                                      title: Text(documentSnapshot['name']))),
+                                      title: Text(
+                                    documentSnapshot['name'],
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ))),
                             ],
                           ),
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        child: Expanded(
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.45,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -67,15 +72,19 @@ class _UsersDataState extends State<UsersData> {
                                   alignment: Alignment.center,
                                   child: ListTile(
                                     title: Text(
-                                        documentSnapshot['kourses'].toString()),
+                                        textAlign: TextAlign.center,
+                                        documentSnapshot['kourses'].toString(),
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold)),
                                   )),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ));
+                ]));
           },
         );
       },

@@ -89,7 +89,7 @@ class _SeatState extends State<Seat> {
                       )),
                   onPressed: () {
                     print(ekleisaBool.toString());
-                    if (takenseat) {
+                    if (takenseat && widget.doc_thesi != 'thesi0') {
                       MotionToast.error(
                         title: Text("Error"),
                         description: Text("Einai piasmeni vlhma"),

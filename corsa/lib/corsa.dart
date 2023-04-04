@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'seat.dart';
 import 'usersData.dart';
+import 'listTitle.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});
@@ -45,7 +46,8 @@ class _CorsaState extends State<Corsa> {
               ))
             ],
           ),
-          Expanded(child: UsersData())
+          Padding(padding: EdgeInsets.only(top: 70), child: ListTitle()),
+          UsersData()
         ],
       ),
     ));
