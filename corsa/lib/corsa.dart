@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'seat.dart';
+import 'leaderboard.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});
@@ -13,24 +14,40 @@ class _CorsaState extends State<Corsa> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-          padding: EdgeInsets.only(top: 120,right: 14,left: 14),
-          child: Column(
-              children: [
+      padding: EdgeInsets.only(top: 120, right: 14, left: 14),
+      child: Column(
+        children: [
           Row(
             children: [
-              Expanded(child: Seat(doc_thesi: 'thesi1',)),
-              Expanded(child: Seat(doc_thesi: 'thesi1',)),
+              Expanded(
+                  child: Seat(
+                doc_thesi: 'thesi1',
+              )),
+              Expanded(
+                  child: Seat(
+                doc_thesi: 'thesi1',
+              )),
             ],
           ),
           Row(
             children: [
-              Expanded(child: Seat(doc_thesi: 'thesi2',)),
-              Expanded(child: Seat(doc_thesi: 'thesi3',)),
-              Expanded(child: Seat(doc_thesi: 'thesi4',))
+              Expanded(
+                  child: Seat(
+                doc_thesi: 'thesi2',
+              )),
+              Expanded(
+                  child: Seat(
+                doc_thesi: 'thesi3',
+              )),
+              Expanded(
+                  child: Seat(
+                doc_thesi: 'thesi4',
+              ))
             ],
-          )
-              ],
-            ),
-        ));
+          ),
+          Leaderboard()
+        ],
+      ),
+    ));
   }
 }

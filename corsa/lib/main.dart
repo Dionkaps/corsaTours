@@ -8,7 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+SharedPreferences preferences = await SharedPreferences.getInstance();
+await preferences.clear();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }

@@ -59,7 +59,7 @@ class _SeatState extends State<Seat> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('Loading...');
+            return CircularProgressIndicator();
           }
 
           name = snapshot.data?.get('name') ?? '';
@@ -69,9 +69,11 @@ class _SeatState extends State<Seat> {
             child: SizedBox(
               height: 150,
               child: TextButton(
-                  child: Text(
-                    name,
-                    style: TextStyle(fontSize: 22),
+                  child: FittedBox(
+                    child: Text(
+                      name,
+                      style: TextStyle(fontSize: 22),
+                    ),
                   ),
                   style: ButtonStyle(
                       backgroundColor: takenseat
@@ -87,7 +89,14 @@ class _SeatState extends State<Seat> {
                       )),
                   onPressed: () {
                     print(ekleisaBool.toString());
-                    if (ekleisaBool == false || ekleisaBool == null) {
+                    if (takenseat) {
+                      MotionToast.error(
+                        title: Text("Error"),
+                        description: Text("Einai piasmeni vlhma"),
+                        displaySideBar: false,
+                      ).show(context);
+                    }
+                    if ((ekleisaBool == false || ekleisaBool == null)&& takenseat == false) {
                       Blurry.success(
                           title: 'Confirm',
                           description: 'Eisai sigouros?',
@@ -118,7 +127,7 @@ class _SeatState extends State<Seat> {
                               displaySideBar: false,
                             ).show(context);
                           }).show(context);
-                    } else if (ekleisaBool == true) {
+                    } else if (ekleisaBool == true && takenseat == false) {
                       MotionToast.error(
                         title: Text("Error"),
                         description: Text("Exeis kleisei hdh stoke"),
