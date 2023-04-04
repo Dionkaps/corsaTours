@@ -59,7 +59,7 @@ class _SeatState extends State<Seat> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Text('');
           }
 
           name = snapshot.data?.get('name') ?? '';
@@ -115,7 +115,7 @@ class _SeatState extends State<Seat> {
                             });
                             final auksisi = FirebaseFirestore.instance
                                 .collection('users')
-                                .doc('names');
+                                .doc(username);
                             auksisi.update({
                               username: FieldValue.increment(1),
                             });

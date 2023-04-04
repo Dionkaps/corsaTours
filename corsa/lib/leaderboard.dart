@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Leaderboard extends StatefulWidget {
   const Leaderboard({super.key});
@@ -10,39 +11,62 @@ class Leaderboard extends StatefulWidget {
 }
 
 class _LeaderboardState extends State<Leaderboard> {
+  String username = '';
   final db = FirebaseFirestore.instance;
+
+  void getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    username = prefs.getString('username').toString();
+  }
+
+  void initState() {
+    getUsername();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance.collection('users').doc('names').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Loading...');
-        }
-
-        // If the document doesn't exist, return a message
-        if (snapshot.hasData && snapshot.data != null && (snapshot.data as DocumentSnapshot).exists) {
-          return Text('No data found!');
-        }
-
-        // Otherwise, extract the data from the document snapshot
-        Map<String, dynamic> data = (snapshot.data as DocumentSnapshot).data() as Map<String, dynamic>;
-        List<String> namesList = List<String>.from(data['names']);
-
-        // Display the names list
-        return ListView.builder(
-          itemCount: namesList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Text(namesList[index]),
+    return StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("users")
+              .snapshots(),
+          builder: (context, snapshots) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: (snapshots.data)?.docs.length ?? 0,
+              itemBuilder: (context, index) {
+                DocumentSnapshot documentSnapshot =
+                    (snapshots.data!).docs[index];
+                return Dismissible(
+                    onDismissed: (direction) {
+                      
+                    },
+                    key: Key(documentSnapshot["koukoz"]),
+                    child: Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.all(5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: ListTile(
+                        title: Text(documentSnapshot["koukoz"]),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              
+                            });
+                          },
+                        ),
+                      ),
+                    ));
+              },
             );
           },
         );
-      },
-    );
   }
 }

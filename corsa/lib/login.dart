@@ -41,6 +41,17 @@ class _LoginState extends State<Login> {
       print(username);
     }
 
+    createUser(String fbusername) {
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection("users").doc(fbusername);
+
+      Map<String, int> usernames = {fbusername: 0};
+
+      documentReference.set(usernames).whenComplete(() {
+        print("$fbusername Created");
+      });
+    }
+
     Future<void> writeDataToFirestore(String username) async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -115,7 +126,7 @@ class _LoginState extends State<Login> {
                         } else {
                           firstTimeFunc();
                           saveName(_nameController.text.toString());
-                          writeDataToFirestore(_nameController.text.toString());
+                          createUser(_nameController.text.toString());
                           widget.callback();
                         }
                       },
