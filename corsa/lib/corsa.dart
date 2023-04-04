@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'seat.dart';
-import 'leaderboard.dart';
+import 'usersData.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});
@@ -21,7 +21,7 @@ class _CorsaState extends State<Corsa> {
             children: [
               Expanded(
                   child: Seat(
-                doc_thesi: 'thesi1',
+                doc_thesi: 'thesi0',
               )),
               Expanded(
                   child: Seat(
@@ -45,7 +45,7 @@ class _CorsaState extends State<Corsa> {
               ))
             ],
           ),
-          Expanded(child: Leaderboard())
+          Expanded(child: UsersData())
         ],
       ),
     ));

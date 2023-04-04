@@ -127,10 +127,17 @@ class _SeatState extends State<Seat> {
                               displaySideBar: false,
                             ).show(context);
                           }).show(context);
-                    } else if (ekleisaBool == true && takenseat == false) {
+                    } else if (ekleisaBool == true && takenseat == false && widget.doc_thesi != 'thesi0') {
                       MotionToast.error(
                         title: Text("Error"),
                         description: Text("Exeis kleisei hdh stoke"),
+                        displaySideBar: false,
+                      ).show(context);
+                    }
+                    else if (widget.doc_thesi == 'thesi0') {
+                      MotionToast.error(
+                        title: Text("Error"),
+                        description: Text("Tha to odigiseis esi to Corsa?"),
                         displaySideBar: false,
                       ).show(context);
                     }
