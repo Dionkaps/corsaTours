@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'seat.dart';
 import 'usersData.dart';
 import 'listTitle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});
@@ -11,6 +12,13 @@ class Corsa extends StatefulWidget {
 }
 
 class _CorsaState extends State<Corsa> {
+
+  @override
+  void initState() {
+    
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

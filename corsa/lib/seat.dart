@@ -20,6 +20,37 @@ class _SeatState extends State<Seat> {
   String username = '';
   String name = '';
   bool takenseat = false;
+  String date1 = '';
+  String date2 = '';
+  int comparison = 0;
+
+  Future<void> ananewsi() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('ekleisa', false);
+  }
+
+  void setDate2() async {
+    // Retrieve the current date and time
+    DateTime now = DateTime.now();
+    // Helper function to convert an integer to a two-digit string
+    String _twoDigitString(int number) {
+      return number.toString().padLeft(2, '0');
+    }
+
+    // Store the date in shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('date2',
+        '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
+  }
+
+  void getDates() async {
+    SharedPreferences prefs1 = await SharedPreferences.getInstance();
+    //Return String
+    date1 = prefs1.getString('date1').toString();
+    SharedPreferences prefs2 = await SharedPreferences.getInstance();
+    //Return String
+    date2 = prefs2.getString('date2').toString();
+  }
 
   void getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,7 +73,15 @@ class _SeatState extends State<Seat> {
   void initState() {
     getUsername();
     getekleisa();
-    // TODO: implement initState
+    getDates();
+    comparison = date1.compareTo(date2);
+    if (comparison < 0) {
+      print('Ton ipiame');
+    } else if (comparison > 0) {
+    } else {
+      ananewsi();
+      setDate2();
+    }
     super.initState();
   }
 
@@ -96,7 +135,8 @@ class _SeatState extends State<Seat> {
                         displaySideBar: false,
                       ).show(context);
                     }
-                    if ((ekleisaBool == false || ekleisaBool == null)&& takenseat == false) {
+                    if ((ekleisaBool == false || ekleisaBool == null) &&
+                        takenseat == false) {
                       Blurry.success(
                           title: 'Confirm',
                           description: 'Eisai sigouros?',
@@ -127,14 +167,15 @@ class _SeatState extends State<Seat> {
                               displaySideBar: false,
                             ).show(context);
                           }).show(context);
-                    } else if (ekleisaBool == true && takenseat == false && widget.doc_thesi != 'thesi0') {
+                    } else if (ekleisaBool == true &&
+                        takenseat == false &&
+                        widget.doc_thesi != 'thesi0') {
                       MotionToast.error(
                         title: Text("Error"),
                         description: Text("Exeis kleisei hdh stoke"),
                         displaySideBar: false,
                       ).show(context);
-                    }
-                    else if (widget.doc_thesi == 'thesi0') {
+                    } else if (widget.doc_thesi == 'thesi0') {
                       MotionToast.error(
                         title: Text("Error"),
                         description: Text("Tha to odigiseis esi to Corsa?"),

@@ -15,6 +15,26 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController _nameController = TextEditingController();
   bool boolValue = true;
+  void date() async {
+    // Retrieve the current date and time
+    DateTime now = DateTime.now();
+    // Helper function to convert an integer to a two-digit string
+    String _twoDigitString(int number) {
+      return number.toString().padLeft(2, '0');
+    }
+
+    // Store the date in shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('date2',
+        '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
+  }
+
+  @override
+  void initState() {
+    date();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     firstTimeFunc() async {
@@ -45,12 +65,13 @@ class _LoginState extends State<Login> {
       DocumentReference documentReference =
           FirebaseFirestore.instance.collection("corsaUsers").doc(fbusername);
 
-      Map<String, dynamic> usernames = {'name': fbusername,'kourses': 0};
+      Map<String, dynamic> usernames = {'name': fbusername, 'kourses': 0};
 
       documentReference.set(usernames).whenComplete(() {
         print("$fbusername Created");
       });
     }
+
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(

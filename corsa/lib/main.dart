@@ -8,8 +8,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-SharedPreferences preferences = await SharedPreferences.getInstance();
-await preferences.clear();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+// Retrieve the current date and time
+  DateTime now = DateTime.now();
+// Helper function to convert an integer to a two-digit string
+  String _twoDigitString(int number) {
+    return number.toString().padLeft(2, '0');
+  }
+
+  // Store the date in shared preferences
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('date1',
+      '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
+  
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
