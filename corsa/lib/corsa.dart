@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'seat.dart';
-import 'usersData.dart';
-import 'listTitle.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Corsa extends StatefulWidget {
   const Corsa({super.key});

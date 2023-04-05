@@ -60,7 +60,7 @@ class _UsersDataState extends State<UsersData> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.45,
+                              width: MediaQuery.of(context).size.width * 0.30,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -77,7 +77,26 @@ class _UsersDataState extends State<UsersData> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.45,
+                              width: MediaQuery.of(context).size.width * 0.30,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Align(
+                                      alignment: Alignment.center,
+                                      child: ListTile(
+                                        title: Text(
+                                            textAlign: TextAlign.center,
+                                            documentSnapshot['kourses']
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold)),
+                                      )),
+                                ],
+                              ),
+                            ),
+                             Container(
+                              width: MediaQuery.of(context).size.width * 0.30,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

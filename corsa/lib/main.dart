@@ -17,11 +17,6 @@ void main() async {
     return number.toString().padLeft(2, '0');
   }
 
-  // Store the date in shared preferences
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('date1',
-      '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
-
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -48,21 +43,21 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   var currentIndex = 0;
   List<IconData> listOfIcons = [
-    Icons.airplane_ticket,
+    Icons.home_rounded,
+    Icons.airplane_ticket_rounded,
     Icons.leaderboard,
     Icons.star_rounded,
-    Icons.settings_rounded,
   ];
 
   static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Main',
+      style: TextStyle(fontSize: 30),
+    ),
     Corsa(),
     UsersData(),
     Text(
       'Index 2: Premium',
-      style: TextStyle(fontSize: 30),
-    ),
-    Text(
-      'Index 3: Settings',
       style: TextStyle(fontSize: 30),
     ),
   ];
@@ -96,9 +91,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             );
           } else {
             return Scaffold(
-                body: Center(
-                  child: _widgetOptions.elementAt(currentIndex),
-                ),
+                body: _widgetOptions.elementAt(currentIndex),
                 bottomNavigationBar: Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
                   height: size.width * .155,

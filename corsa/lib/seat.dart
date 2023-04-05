@@ -26,6 +26,12 @@ class _SeatState extends State<Seat> {
   String date2 = '';
   int comparison = 0;
   Timer? _timer;
+  // Retrieve the current date and time
+  DateTime now = DateTime.now();
+// Helper function to convert an integer to a two-digit string
+  String _twoDigitString(int number) {
+    return number.toString().padLeft(2, '0');
+  }
 
   Future<void> ananewsi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,10 +78,17 @@ class _SeatState extends State<Seat> {
     ekleisaBool = prefs.getBool('ekleisa');
   }
 
+  void simera() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('date1',
+        '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
+  }
+
   @override
   void initState() {
+    simera();
     getUsername();
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       getekleisa();
       getDates();
       comparison = date1.compareTo(date2);
@@ -84,9 +97,9 @@ class _SeatState extends State<Seat> {
       } else if (comparison > 0) {
         ananewsi();
         setDate2();
-      } else {
-        
-      }
+        print(date1);
+        print(date2 + '\n');
+      } else {}
     });
     super.initState();
   }
@@ -137,12 +150,11 @@ class _SeatState extends State<Seat> {
                     if (takenseat && widget.doc_thesi != 'thesi0') {
                       showTopSnackBar(
                         displayDuration: Duration(milliseconds: 800),
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message:
-                                    "Einai piasmenh vlhma",
-                              ),
-                            );
+                        Overlay.of(context),
+                        CustomSnackBar.error(
+                          message: "Einai piasmenh vlhma",
+                        ),
+                      );
                     }
                     if ((ekleisaBool == false || ekleisaBool == null) &&
                         takenseat == false) {
@@ -174,8 +186,7 @@ class _SeatState extends State<Seat> {
                               displayDuration: Duration(milliseconds: 800),
                               Overlay.of(context),
                               CustomSnackBar.success(
-                                message:
-                                    "Success Xrwstas cafe",
+                                message: "Success Xrwstas cafe",
                               ),
                             );
                           }).show(context);
@@ -184,21 +195,19 @@ class _SeatState extends State<Seat> {
                         widget.doc_thesi != 'thesi0') {
                       showTopSnackBar(
                         displayDuration: Duration(milliseconds: 800),
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message:
-                                    "Exeis idi kleisei stoke",
-                              ),
-                            );
+                        Overlay.of(context),
+                        CustomSnackBar.error(
+                          message: "Exeis idi kleisei stoke",
+                        ),
+                      );
                     } else if (widget.doc_thesi == 'thesi0') {
                       showTopSnackBar(
                         displayDuration: Duration(milliseconds: 800),
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message:
-                                    "Tha to odigiseis esi to Corsa?",
-                              ),
-                            );
+                        Overlay.of(context),
+                        CustomSnackBar.error(
+                          message: "Tha to odigiseis esi to Corsa?",
+                        ),
+                      );
                     }
                   }),
             ),
