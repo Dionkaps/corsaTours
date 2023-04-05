@@ -3,8 +3,10 @@ import 'package:blurry/blurry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:motion_toast/motion_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 bool? ekleisaBool;
 
@@ -80,16 +82,14 @@ class _SeatState extends State<Seat> {
       if (comparison < 0) {
         print('Ton ipiame');
       } else if (comparison > 0) {
-        
-      } else {
         ananewsi();
         setDate2();
+      } else {
+        
       }
     });
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +135,14 @@ class _SeatState extends State<Seat> {
                   onPressed: () {
                     print(ekleisaBool.toString());
                     if (takenseat && widget.doc_thesi != 'thesi0') {
-                      MotionToast.error(
-                        title: Text("Error"),
-                        description: Text("Einai piasmeni vlhma"),
-                        displaySideBar: false,
-                      ).show(context);
+                      showTopSnackBar(
+                        displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message:
+                                    "Einai piasmenh vlhma",
+                              ),
+                            );
                     }
                     if ((ekleisaBool == false || ekleisaBool == null) &&
                         takenseat == false) {
@@ -167,26 +170,35 @@ class _SeatState extends State<Seat> {
                             });
                             getekleisa();
                             Navigator.pop(context);
-                            MotionToast.success(
-                              title: Text("Success"),
-                              description: Text("Xrwstas cafe"),
-                              displaySideBar: false,
-                            ).show(context);
+                            showTopSnackBar(
+                              displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.success(
+                                message:
+                                    "Success Xrwstas cafe",
+                              ),
+                            );
                           }).show(context);
                     } else if (ekleisaBool == true &&
                         takenseat == false &&
                         widget.doc_thesi != 'thesi0') {
-                      MotionToast.error(
-                        title: Text("Error"),
-                        description: Text("Exeis kleisei hdh stoke"),
-                        displaySideBar: false,
-                      ).show(context);
+                      showTopSnackBar(
+                        displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message:
+                                    "Exeis idi kleisei stoke",
+                              ),
+                            );
                     } else if (widget.doc_thesi == 'thesi0') {
-                      MotionToast.error(
-                        title: Text("Error"),
-                        description: Text("Tha to odigiseis esi to Corsa?"),
-                        displaySideBar: false,
-                      ).show(context);
+                      showTopSnackBar(
+                        displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message:
+                                    "Tha to odigiseis esi to Corsa?",
+                              ),
+                            );
                     }
                   }),
             ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:corsa/usersData.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'corsa.dart';
@@ -20,7 +21,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString('date1',
       '${now.year}-${_twoDigitString(now.month)}-${_twoDigitString(now.day)}');
-  
+
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -45,6 +46,26 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  var currentIndex = 0;
+  List<IconData> listOfIcons = [
+    Icons.airplane_ticket,
+    Icons.leaderboard,
+    Icons.star_rounded,
+    Icons.settings_rounded,
+  ];
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Corsa(),
+    UsersData(),
+    Text(
+      'Index 2: Premium',
+      style: TextStyle(fontSize: 30),
+    ),
+    Text(
+      'Index 3: Settings',
+      style: TextStyle(fontSize: 30),
+    ),
+  ];
   void callback() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return bool
@@ -63,6 +84,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return FutureBuilder<bool>(
       future: boolValueMethod(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -73,7 +95,71 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               callback: callback,
             );
           } else {
-            return Corsa();
+            return Scaffold(
+                body: Center(
+                  child: _widgetOptions.elementAt(currentIndex),
+                ),
+                bottomNavigationBar: Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  height: size.width * .155,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.1),
+                        blurRadius: 40,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40.0),
+                      topRight: Radius.circular(40.0),
+                    ),
+                  ),
+                  child: ListView.builder(
+                    itemCount: 4,
+                    scrollDirection: Axis.horizontal,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: size.width * .024),
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        setState(
+                          () {
+                            currentIndex = index;
+                          },
+                        );
+                      },
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            margin: EdgeInsets.only(
+                              bottom:
+                                  index == currentIndex ? 0 : size.width * .029,
+                              right: size.width * .0422,
+                              left: size.width * .0422,
+                            ),
+                            width: size.width * .128,
+                            height:
+                                index == currentIndex ? size.width * .014 : 0,
+                          ),
+                          Icon(
+                            listOfIcons[index],
+                            size: size.width * .076,
+                            color: index == currentIndex
+                                ? Colors.blueAccent
+                                : Colors.black38,
+                          ),
+                          SizedBox(height: size.width * .03),
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
           }
         } else {
           return const CircularProgressIndicator();

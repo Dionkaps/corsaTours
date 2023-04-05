@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:motion_toast/motion_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class Login extends StatefulWidget {
   final VoidCallback callback;
@@ -124,11 +125,14 @@ class _LoginState extends State<Login> {
                     child: TextButton(
                       onPressed: () {
                         if (_nameController.text.trim() == '') {
-                          MotionToast.error(
-                                  title: Text("Error"),
-                                  description: Text("Vale username stoke"),
-                                  displaySideBar: false)
-                              .show(context);
+                          showTopSnackBar(
+                            displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message:
+                                    "Vale username stoke",
+                              ),
+                            );
                           FocusScope.of(context).unfocus();
                         } else {
                           firstTimeFunc();

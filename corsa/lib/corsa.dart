@@ -12,10 +12,8 @@ class Corsa extends StatefulWidget {
 }
 
 class _CorsaState extends State<Corsa> {
-
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -23,9 +21,17 @@ class _CorsaState extends State<Corsa> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.only(top: 120, right: 14, left: 14),
+      padding: EdgeInsets.only(top: 0, right: 14, left: 14),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 110),
+            child: Text(
+              'Seat picker',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+          ),
           Row(
             children: [
               Expanded(
@@ -54,8 +60,6 @@ class _CorsaState extends State<Corsa> {
               ))
             ],
           ),
-          Padding(padding: EdgeInsets.only(top: 70), child: ListTitle()),
-          Expanded(child: UsersData())
         ],
       ),
     ));
