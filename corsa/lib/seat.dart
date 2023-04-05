@@ -23,6 +23,7 @@ class _SeatState extends State<Seat> {
   String date1 = '';
   String date2 = '';
   int comparison = 0;
+  Timer? _timer;
 
   Future<void> ananewsi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,18 +73,23 @@ class _SeatState extends State<Seat> {
   @override
   void initState() {
     getUsername();
-    getekleisa();
-    getDates();
-    comparison = date1.compareTo(date2);
-    if (comparison < 0) {
-      print('Ton ipiame');
-    } else if (comparison > 0) {
-    } else {
-      ananewsi();
-      setDate2();
-    }
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      getekleisa();
+      getDates();
+      comparison = date1.compareTo(date2);
+      if (comparison < 0) {
+        print('Ton ipiame');
+      } else if (comparison > 0) {
+        
+      } else {
+        ananewsi();
+        setDate2();
+      }
+    });
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

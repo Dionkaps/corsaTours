@@ -40,6 +40,7 @@ dependencies:
   cloud_firestore: ^4.4.5
   firebase_core: ^2.8.0
   firebase_database: ^10.0.16
+  flutter_floating_bottom_bar: ^1.1.0
 
 dev_dependencies:
   flutter_test:
