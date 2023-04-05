@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
 
   shared_preferences: ^2.0.20
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +42,7 @@ dependencies:
   firebase_database: ^10.0.16
   flutter_floating_bottom_bar: ^1.1.0
   top_snackbar_flutter: ^3.0.0+1
+  dotted_line: ^3.1.0
 
 
 dev_dependencies:
@@ -59,7 +61,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  assets:
+    - assets/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

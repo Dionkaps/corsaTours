@@ -6,6 +6,8 @@ import 'corsa.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'myline.dart';
+
 bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,14 +48,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Icons.home_rounded,
     Icons.airplane_ticket_rounded,
     Icons.leaderboard,
-    Icons.star_rounded,
+    Icons.account_circle_rounded,
   ];
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Main',
-      style: TextStyle(fontSize: 30),
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    MyLine(),
     Corsa(),
     UsersData(),
     Text(
@@ -91,6 +90,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             );
           } else {
             return Scaffold(
+                appBar: AppBar(
+                    backgroundColor: Color.fromARGB(0, 243, 33, 33),
+                    elevation: 0,
+                    centerTitle: true,
+                    title: Text(
+                      'CorsApp',
+                      style: TextStyle(color: Colors.black),
+                    )),
                 body: _widgetOptions.elementAt(currentIndex),
                 bottomNavigationBar: Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
