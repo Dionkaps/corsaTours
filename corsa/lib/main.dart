@@ -96,7 +96,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     centerTitle: true,
                     title: Text(
                       'CorsApp',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.black,fontSize: 50),
                     )),
                 body: _widgetOptions.elementAt(currentIndex),
                 bottomNavigationBar: Container(

@@ -9,7 +9,7 @@ class MyLine extends StatelessWidget {
     return Column(
       children: [
         Padding(
-            padding: EdgeInsets.only(bottom: 10, top: 10),
+            padding: EdgeInsets.only(bottom: 10, top: 20),
             child: RichText(
               text: TextSpan(
                 style: TextStyle(
@@ -78,6 +78,39 @@ class MyLine extends StatelessWidget {
                   TextSpan(text: 'Korinthou '),
                   TextSpan(
                       text: '10:45',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 35.0)),
+                ],
+              ),
+            )),
+            Expanded(
+          child: Align(
+            alignment: Alignment.center,
+            child: DottedLine(
+              direction: Axis.vertical,
+              lineLength: double.infinity,
+              lineThickness: 10.0,
+              dashLength: 15.0,
+              dashColor: Colors.black,
+              dashRadius: 0.0,
+              dashGapLength: 8.0,
+              dashGapColor: Colors.transparent,
+              dashGapRadius: 0.0,
+            ),
+          ),
+        ),
+        Padding(
+            padding: EdgeInsets.only(bottom: 15, top: 10),
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.black,
+                ),
+                children: <TextSpan>[
+                  TextSpan(text: 'Korinthou-Zavlani '),
+                  TextSpan(
+                      text: '10:50',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 35.0)),
                 ],
