@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'corsa.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'map.dart';
+import 'profile.dart';
 
 import 'myline.dart';
 
@@ -12,6 +14,7 @@ bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
+  preferences.clear();
 // Retrieve the current date and time
   DateTime now = DateTime.now();
 // Helper function to convert an integer to a two-digit string
@@ -48,17 +51,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Icons.home_rounded,
     Icons.airplane_ticket_rounded,
     Icons.leaderboard,
-    Icons.account_circle_rounded,
+    Icons.sports_esports_rounded,
   ];
 
   static List<Widget> _widgetOptions = <Widget>[
     MyLine(),
     Corsa(),
     UsersData(),
-    Text(
-      'Index 2: Premium',
-      style: TextStyle(fontSize: 30),
-    ),
+    Profile(),
   ];
   void callback() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -96,7 +96,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     centerTitle: true,
                     title: Text(
                       'CorsApp',
-                      style: TextStyle(color: Colors.black,fontSize: 50),
+                      style: TextStyle(color: Colors.black, fontSize: 40),
                     )),
                 body: _widgetOptions.elementAt(currentIndex),
                 bottomNavigationBar: Container(

@@ -1,3 +1,4 @@
+import 'package:blurry/blurry.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -127,18 +128,25 @@ class _LoginState extends State<Login> {
                         if (_nameController.text.trim() == '') {
                           showTopSnackBar(
                             displayDuration: Duration(milliseconds: 800),
-                              Overlay.of(context),
-                              CustomSnackBar.error(
-                                message:
-                                    "Vale username stoke",
-                              ),
-                            );
+                            Overlay.of(context),
+                            CustomSnackBar.error(
+                              message: "Vale username stoke",
+                            ),
+                          );
                           FocusScope.of(context).unfocus();
                         } else {
-                          firstTimeFunc();
-                          saveName(_nameController.text.toString());
-                          createUser(_nameController.text.toString());
-                          widget.callback();
+                          Blurry.warning(
+                              title: 'Warning',
+                              description:
+                                  'O Dais den plirwse arketa wste na mporeis na allakseis username mesa stin efarmogi. \n\nEisai sigouros oti thes na sinexiseis me to username: ${_nameController.text.toString()}?',
+                              confirmButtonText: 'Confirm',
+                              onConfirmButtonPressed: () {
+                                firstTimeFunc();
+                                saveName(_nameController.text.toString());
+                                createUser(_nameController.text.toString());
+                                widget.callback();
+                                Navigator.of(context).pop();
+                              }).show(context);
                         }
                       },
                       child: const FittedBox(
