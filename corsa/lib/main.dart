@@ -55,7 +55,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   ];
 
   static List<Widget> _widgetOptions = <Widget>[
-    MyLine(),
+    LevelMapPage(),
     Corsa(),
     UsersData(),
     Profile(),

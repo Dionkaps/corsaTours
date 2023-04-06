@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                           Blurry.warning(
                               title: 'Warning',
                               description:
-                                  'O Dais den plirwse arketa wste na mporeis na allakseis username mesa stin efarmogi. \n\nEisai sigouros oti thes na sinexiseis me to username: ${_nameController.text.toString()}?',
+                                  'O Dais den plirwse arketa gia na mporeis na allakseis username mesa stin efarmogi. \n\nEisai sigouros oti thes na sinexiseis me to username: ${_nameController.text.toString()}?',
                               confirmButtonText: 'Confirm',
                               onConfirmButtonPressed: () {
                                 firstTimeFunc();

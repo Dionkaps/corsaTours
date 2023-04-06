@@ -16,6 +16,8 @@ class _LevelMapPageState extends State<LevelMapPage> {
         body: LevelMap(
           backgroundColor: Colors.white,
           levelMapParams: LevelMapParams(
+            enableVariationBetweenCurves: false,
+            maxVariationFactor: 0,
             levelHeight: MediaQuery.of(context).size.height/5,
             levelCount: 5,
             currentLevel: 2.5,
