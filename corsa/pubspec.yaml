@@ -45,6 +45,8 @@ dependencies:
   dotted_line: ^3.1.0
   level_map: ^0.2.0
   shimmer: ^2.0.0
+  connectivity: ^3.0.6
+  internet_connection_checker: ^1.0.0+1
 
 
 dev_dependencies:

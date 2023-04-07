@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:blurry/blurry.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -74,6 +77,17 @@ class _LoginState extends State<Login> {
       });
     }
 
+    void checkInternetConnectivity() async {
+      try {
+        final result = await InternetAddress.lookup('example.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          print('connected');
+        }
+      } on SocketException catch (_) {
+        print('not connected');
+      }
+    }
+
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -124,29 +138,67 @@ class _LoginState extends State<Login> {
                         color: Color.fromARGB(21, 0, 128, 255),
                         borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: TextButton(
-                      onPressed: () {
-                        if (_nameController.text.trim() == '') {
+                      onPressed: () async {
+                        try {
+                          final result =
+                              await InternetAddress.lookup('example.com');
+                          if (result.isNotEmpty &&
+                              result[0].rawAddress.isNotEmpty) {
+                            if (_nameController.text.trim() == '') {
+                              showTopSnackBar(
+                                displayDuration: Duration(milliseconds: 800),
+                                Overlay.of(context),
+                                CustomSnackBar.error(
+                                  message: "Vale username stoke",
+                                ),
+                              );
+                              FocusScope.of(context).unfocus();
+                            } else {
+                              CollectionReference ifexists = FirebaseFirestore
+                                  .instance
+                                  .collection('corsaUsers');
+                              // Construct a query that searches for documents where the "name" field matches the value of _nameController.text
+                              Query query = ifexists.where('name',
+                                  isEqualTo: _nameController.text.toString());
+
+// Execute the query and check if any documents match the search criteria
+                              query.get().then((querySnapshot) {
+                                if (querySnapshot.docs.isNotEmpty) {
+                                  showTopSnackBar(
+                                    displayDuration:
+                                        Duration(milliseconds: 800),
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message: "IPARXEI IDI TO USERNAME",
+                                    ),
+                                  );
+                                } else {
+                                  Blurry.warning(
+                                      title: 'Warning',
+                                      description:
+                                          'O Dais den plirwse arketa gia na mporeis na allakseis username mesa stin efarmogi. \n\nEisai sigouros oti thes na sinexiseis me to username: ${_nameController.text.toString()}?',
+                                      confirmButtonText: 'Confirm',
+                                      onConfirmButtonPressed: () {
+                                        firstTimeFunc();
+                                        saveName(
+                                            _nameController.text.toString());
+                                        createUser(
+                                            _nameController.text.toString());
+                                        widget.callback();
+                                        Navigator.of(context).pop();
+                                      }).show(context);
+                                }
+                              });
+                            }
+                          }
+                        } on SocketException catch (_) {
                           showTopSnackBar(
-                            displayDuration: Duration(milliseconds: 800),
+                            displayDuration: Duration(milliseconds: 1500),
                             Overlay.of(context),
                             CustomSnackBar.error(
-                              message: "Vale username stoke",
+                              message: "Me peristeri tha epikoinisoume me ton server? Anoikse Wifi h Data",
                             ),
                           );
-                          FocusScope.of(context).unfocus();
-                        } else {
-                          Blurry.warning(
-                              title: 'Warning',
-                              description:
-                                  'O Dais den plirwse arketa gia na mporeis na allakseis username mesa stin efarmogi. \n\nEisai sigouros oti thes na sinexiseis me to username: ${_nameController.text.toString()}?',
-                              confirmButtonText: 'Confirm',
-                              onConfirmButtonPressed: () {
-                                firstTimeFunc();
-                                saveName(_nameController.text.toString());
-                                createUser(_nameController.text.toString());
-                                widget.callback();
-                                Navigator.of(context).pop();
-                              }).show(context);
                         }
                       },
                       child: const FittedBox(

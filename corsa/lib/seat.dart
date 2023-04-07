@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:blurry/blurry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -117,101 +119,134 @@ class _SeatState extends State<Seat> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text('');
-          }
-
-          name = snapshot.data?.get('name') ?? '';
-          takenseat = snapshot.data?.get('taken') ?? false;
-          return Padding(
-            padding: EdgeInsets.only(left: 5, right: 5, bottom: 16),
-            child: SizedBox(
-              height: 150,
-              child: TextButton(
-                  child: FittedBox(
-                    child: Text(
-                      name,
-                      style: TextStyle(fontSize: 22),
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5, right: 5, bottom: 16),
+                child: SizedBox(
+                  height: 150,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300]!,
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  style: ButtonStyle(
-                      backgroundColor: takenseat
-                          ? MaterialStateProperty.all<Color>(
-                              Color.fromARGB(55, 90, 105, 123))
-                          : MaterialStateProperty.all<Color>(
-                              Color.fromARGB(50, 33, 149, 243)),
-                      // You can add other styles like padding, border radius etc. here
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      )),
-                  onPressed: () {
-                    print(ekleisaBool.toString());
-                    if (takenseat && widget.doc_thesi != 'thesi0') {
-                      showTopSnackBar(
-                        displayDuration: Duration(milliseconds: 800),
-                        Overlay.of(context),
-                        CustomSnackBar.error(
-                          message: "Einai piasmenh vlhma",
-                        ),
-                      );
-                    }
-                    if ((ekleisaBool == false || ekleisaBool == null) &&
-                        takenseat == false) {
-                      Blurry.success(
-                          title: 'Confirm',
-                          description: 'Eisai sigouros?',
-                          confirmButtonText: 'Confirm',
-                          onConfirmButtonPressed: () {
-                            ekleisa();
-                            final docasa = FirebaseFirestore.instance
-                                .collection('kratiseis')
-                                .doc(widget.doc_thesi);
-                            docasa.update({
-                              'name': username,
-                            });
-
-                            docasa.update({
-                              'taken': true,
-                            });
-                            final auksisi = FirebaseFirestore.instance
-                                .collection('corsaUsers')
-                                .doc(username);
-                            auksisi.update({
-                              'kourses': FieldValue.increment(1),
-                            });
-                            getekleisa();
-                            Navigator.pop(context);
+                ),
+              ),
+            );
+          } else {
+            name = snapshot.data?.get('name') ?? '';
+            takenseat = snapshot.data?.get('taken') ?? false;
+            return Padding(
+              padding: EdgeInsets.only(left: 5, right: 5, bottom: 16),
+              child: SizedBox(
+                height: 150,
+                child: TextButton(
+                    child: FittedBox(
+                      child: Text(
+                        name,
+                        style: TextStyle(fontSize: 22),
+                      ),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor: takenseat
+                            ? MaterialStateProperty.all<Color>(
+                                Color.fromARGB(55, 90, 105, 123))
+                            : MaterialStateProperty.all<Color>(
+                                Color.fromARGB(50, 33, 149, 243)),
+                        // You can add other styles like padding, border radius etc. here
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        )),
+                    onPressed: () async {
+                      try {
+                        final result =
+                            await InternetAddress.lookup('example.com');
+                        if (result.isNotEmpty &&
+                            result[0].rawAddress.isNotEmpty) {
+                          print(ekleisaBool.toString());
+                          if (takenseat && widget.doc_thesi != 'thesi0') {
                             showTopSnackBar(
                               displayDuration: Duration(milliseconds: 800),
                               Overlay.of(context),
-                              CustomSnackBar.success(
-                                message: "Success Xrwstas cafe",
+                              CustomSnackBar.error(
+                                message: "Einai piasmenh vlhma",
                               ),
                             );
-                          }).show(context);
-                    } else if (ekleisaBool == true &&
-                        takenseat == false &&
-                        widget.doc_thesi != 'thesi0') {
-                      showTopSnackBar(
-                        displayDuration: Duration(milliseconds: 800),
-                        Overlay.of(context),
-                        CustomSnackBar.error(
-                          message: "Exeis idi kleisei stoke",
-                        ),
-                      );
-                    } else if (widget.doc_thesi == 'thesi0') {
-                      showTopSnackBar(
-                        displayDuration: Duration(milliseconds: 800),
-                        Overlay.of(context),
-                        CustomSnackBar.error(
-                          message: "Tha to odigiseis esi to Corsa?",
-                        ),
-                      );
-                    }
-                  }),
-            ),
-          );
+                          }
+                          if ((ekleisaBool == false || ekleisaBool == null) &&
+                              takenseat == false) {
+                            Blurry.success(
+                                title: 'Confirm',
+                                description: 'Eisai sigouros?',
+                                confirmButtonText: 'Confirm',
+                                onConfirmButtonPressed: () {
+                                  ekleisa();
+                                  final docasa = FirebaseFirestore.instance
+                                      .collection('kratiseis')
+                                      .doc(widget.doc_thesi);
+                                  docasa.update({
+                                    'name': username,
+                                  });
+
+                                  docasa.update({
+                                    'taken': true,
+                                  });
+                                  final auksisi = FirebaseFirestore.instance
+                                      .collection('corsaUsers')
+                                      .doc(username);
+                                  auksisi.update({
+                                    'kourses': FieldValue.increment(1),
+                                  });
+                                  getekleisa();
+                                  Navigator.pop(context);
+                                  showTopSnackBar(
+                                    displayDuration:
+                                        Duration(milliseconds: 800),
+                                    Overlay.of(context),
+                                    CustomSnackBar.success(
+                                      message: "Success Xrwstas cafe",
+                                    ),
+                                  );
+                                }).show(context);
+                          } else if (ekleisaBool == true &&
+                              takenseat == false &&
+                              widget.doc_thesi != 'thesi0') {
+                            showTopSnackBar(
+                              displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message: "Exeis idi kleisei stoke",
+                              ),
+                            );
+                          } else if (widget.doc_thesi == 'thesi0') {
+                            showTopSnackBar(
+                              displayDuration: Duration(milliseconds: 800),
+                              Overlay.of(context),
+                              CustomSnackBar.error(
+                                message: "Tha to odigiseis esi to Corsa?",
+                              ),
+                            );
+                          }
+                        }
+                      } on SocketException catch (_) {
+                        showTopSnackBar(
+                          displayDuration: Duration(milliseconds: 1500),
+                          Overlay.of(context),
+                          CustomSnackBar.error(
+                            message:
+                                "Me peristeri tha epikoinisoume me ton server? Anoikse Wifi h Data",
+                          ),
+                        );
+                      }
+                    }),
+              ),
+            );
+          }
         });
   }
 }
