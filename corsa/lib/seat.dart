@@ -123,7 +123,8 @@ class _SeatState extends State<Seat> {
               baseColor: Colors.grey[300]!,
               highlightColor: Colors.grey[100]!,
               child: Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5, bottom: 16),
+                padding: const EdgeInsets.only(
+                    top: 16, left: 5, right: 5, bottom: 16),
                 child: SizedBox(
                   height: 150,
                   child: Container(
@@ -139,22 +140,22 @@ class _SeatState extends State<Seat> {
             name = snapshot.data?.get('name') ?? '';
             takenseat = snapshot.data?.get('taken') ?? false;
             return Padding(
-              padding: EdgeInsets.only(left: 5, right: 5, bottom: 16),
+              padding: EdgeInsets.only(top: 16, left: 5, right: 5, bottom: 16),
               child: SizedBox(
                 height: 150,
                 child: TextButton(
                     child: FittedBox(
                       child: Text(
                         name,
-                        style: TextStyle(fontSize: 22),
+                        style: TextStyle(fontSize: 22, color: Colors.black87),
                       ),
                     ),
                     style: ButtonStyle(
                         backgroundColor: takenseat
                             ? MaterialStateProperty.all<Color>(
-                                Color.fromARGB(55, 90, 105, 123))
+                                Color(0xFFD7DBDF))
                             : MaterialStateProperty.all<Color>(
-                                Color.fromARGB(50, 33, 149, 243)),
+                                Color.fromARGB(255, 105, 175, 233)),
                         // You can add other styles like padding, border radius etc. here
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(

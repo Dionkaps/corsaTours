@@ -8,8 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'map.dart';
 import 'profile.dart';
 
-import 'myline.dart';
-
 bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

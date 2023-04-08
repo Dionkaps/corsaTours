@@ -5,47 +5,23 @@ class ListTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Card(
+    return Card(
       color: Colors.transparent,
       elevation: 0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                    alignment: Alignment.center,
-                    child: ListTile(
-                        title: Text(
-                     'Username',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ))),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                    alignment: Alignment.center,
-                    child: ListTile(
-                      title: Text(
-                          textAlign: TextAlign.center,
-                          'Total Rides',
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold)),
-                    )),
-              ],
-            ),
-          ),
-        ],
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.45,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+                alignment: Alignment.center,
+                child: ListTile(
+                    title: Text(
+                  'Total Rides Leaderboard',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ))),
+          ],
+        ),
       ),
     );
   }
