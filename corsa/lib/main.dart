@@ -3,6 +3,7 @@ import 'package:corsa/testing.dart';
 import 'package:corsa/usersData.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:morphing_text/morphing_text.dart';
 import 'corsa.dart';
 import 'login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,6 +46,33 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  static const List<String> text = [
+    "CorsApp",
+    "From your place",
+    "to Ceid",
+    "to Ceid and back",
+    "with safety",
+    "with safety and comfort",
+  ];
+  int index = 0;
+  List<Widget> animations = [
+    EvaporateMorphingText(
+      texts: text,
+      loopForever: true,
+      onComplete: () {
+        print("Completed");
+      },
+      textStyle: TextStyle(fontSize: 27.0, color: Colors.black),
+    ),
+    ScaleMorphingText(
+      texts: text,
+      loopForever: true,
+      onComplete: () {
+        print("Completed");
+      },
+      textStyle: TextStyle(fontSize: 32.0, color: Colors.black),
+    ),
+  ];
   var currentIndex = 0;
   List<IconData> listOfIcons = [
     Icons.home_rounded,
@@ -93,10 +121,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     backgroundColor: Color.fromARGB(0, 243, 33, 33),
                     elevation: 0,
                     centerTitle: true,
-                    title: Text(
-                      'CorsApp',
-                      style: TextStyle(color: Colors.black, fontSize: 40),
-                    )),
+                    title: animations[index % animations.length]),
                 body: _widgetOptions.elementAt(currentIndex),
                 bottomNavigationBar: Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
