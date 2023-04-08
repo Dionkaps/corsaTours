@@ -12,7 +12,7 @@ bool boolValue = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.clear();
+  //preferences.clear();
 // Retrieve the current date and time
   DateTime now = DateTime.now();
 // Helper function to convert an integer to a two-digit string
