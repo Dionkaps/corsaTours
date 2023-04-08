@@ -47,6 +47,7 @@ dependencies:
   shimmer: ^2.0.0
   connectivity: ^3.0.6
   internet_connection_checker: ^1.0.0+1
+  url_launcher: ^6.1.10
 
 
 dev_dependencies:

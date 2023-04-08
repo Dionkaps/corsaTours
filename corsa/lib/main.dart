@@ -49,7 +49,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     Icons.home_rounded,
     Icons.airplane_ticket_rounded,
     Icons.leaderboard,
-    Icons.sports_esports_rounded,
+    Icons.account_circle_rounded,
   ];
 
   static List<Widget> _widgetOptions = <Widget>[

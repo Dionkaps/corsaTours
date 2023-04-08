@@ -1,6 +1,7 @@
 import 'package:blurry/blurry.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -9,8 +10,18 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+const url = 'https://www.youtube.com/watch?v=C-fKAzdTrLU';
+
 class _ProfileState extends State<Profile> {
   late Future<String> _usernameFuture;
+  final uri = Uri.parse(url);
+  opUrl() async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   void initState() {
@@ -29,45 +40,7 @@ class _ProfileState extends State<Profile> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        FutureBuilder(
-          future: _usernameFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 100,
-                    child: Text(
-                      snapshot.data ?? '',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.edit_square,
-                        color: Color.fromARGB(122, 0, 0, 0),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          Blurry.warning(
-                                  title: 'Confirm',
-                                  description: 'Eisai sigouros?',
-                                  confirmButtonText: 'Confirm',
-                                  onConfirmButtonPressed: () {})
-                              .show(context);
-                        });
-                      })
-                ],
-              ); // Show empty string if data is null
-            } else {
-              return CircularProgressIndicator();
-            }
-          },
-        )
-      ],
+      children: [TextButton(onPressed: opUrl, child: Text('Open URL'))],
     );
   }
 }
