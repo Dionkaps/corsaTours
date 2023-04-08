@@ -77,7 +77,7 @@ class _CorsaState extends State<Corsa> {
           child: Card(
             elevation: 25,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(20.0),
             ),
             color: Color.fromARGB(255, 250, 250, 255),
             child: Padding(

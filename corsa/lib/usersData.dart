@@ -120,7 +120,7 @@ class _UsersDataState extends State<UsersData> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
-                            color: Color.fromARGB(21, 0, 140, 255),
+                            color: Color.fromARGB(255, 105, 175, 233),
                             elevation: 0,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

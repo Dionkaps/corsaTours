@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:corsa/testing.dart';
 import 'package:corsa/usersData.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   ];
 
   static List<Widget> _widgetOptions = <Widget>[
-    LevelMapPage(),
+    Testing(),
     Corsa(),
     UsersData(),
     Profile(),

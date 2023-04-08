@@ -90,8 +90,8 @@ class _SeatState extends State<Seat> {
   void initState() {
     simera();
     getUsername();
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      getekleisa();
+    _timer = Timer.periodic(Duration(milliseconds: 300), (timer) async{
+      await getekleisa();
       getDates();
       comparison = date1.compareTo(date2);
       if (comparison < 0) {
