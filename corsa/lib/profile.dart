@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
 
-  final url = 'https://www.youtube.com/watch?v=xvFZjo5PgG0';
+  final url = 'https://www.youtube.com/watch?v=a3Z7zEc7AXQ';
 
   Future<String> getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -74,17 +74,25 @@ class Profile extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Card(
-                            color: Color.fromARGB(255, 105, 175, 233),
+                              color: Color.fromARGB(255, 105, 175, 233),
                               elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
                               child: Padding(
                                   padding: EdgeInsets.only(
                                       left: 10, right: 10, top: 10, bottom: 10),
-                                  child: Text('Connected as: $username',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),))),
+                                  child: Text(
+                                    'Connected as: $username',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
+                                  ))),
                         )),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 5, right: 5),
+                  padding: EdgeInsets.only(left: 15, right: 15),
                   child: FittedBox(
                       child: Text(
                     'Money saved using Corsa',
@@ -95,19 +103,28 @@ class Profile extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.only(left: 15, right: 15),
                     child: FittedBox(
-                      child: AnimatedDigitWidget(
-                        value: kourses != null
-                            ? kourses! * 1.6
-                            : 0, // or use controller
-                        textStyle: TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
+                      child: Card(
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        fractionDigits: 2,
-                        enableSeparator: true,
-                        separateSymbol: "·",
-                        separateLength: 3,
-                        decimalSeparator: ",",
-                        suffix: "€",
+                        child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: AnimatedDigitWidget(
+                            value: kourses != null
+                                ? kourses! * 1.6
+                                : 0, // or use controller
+                            textStyle: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                            fractionDigits: 2,
+                            enableSeparator: true,
+                            separateSymbol: "·",
+                            separateLength: 3,
+                            decimalSeparator: ",",
+                            suffix: "€",
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -121,7 +138,10 @@ class Profile extends StatelessWidget {
                         bottom: 20.0,
                       ),
                       child: Row(children: [
-                        Text('Report a bug: ',style: TextStyle(fontSize: 15),),
+                        Text(
+                          'Report a bug: ',
+                          style: TextStyle(fontSize: 15),
+                        ),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),

@@ -11,34 +11,6 @@ class Testing extends StatefulWidget {
 }
 
 class _TestingState extends State<Testing> {
-  static const List<String> text = [
-    "Corsa Tours",
-    "From your place",
-    "to Ceid",
-    "to Ceid and back",
-    "with safety",
-    "with safety and comfort",
-  ];
-
-  List<Widget> animations = [
-    EvaporateMorphingText(
-      texts: text,
-      loopForever: true,
-      onComplete: () {
-        print("Completed");
-      },
-      textStyle: TextStyle(fontSize: 25.0),
-    ),
-    ScaleMorphingText(
-      texts: text,
-      loopForever: true,
-      onComplete: () {
-        print("Completed");
-      },
-      textStyle: TextStyle(fontSize: 30.0),
-    ),
-  ];
-
   int index = 0;
 
   @override
@@ -48,9 +20,158 @@ class _TestingState extends State<Testing> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-                alignment: Alignment.center,
-                child: animations[index % animations.length]),
+            Expanded(
+                child: Align(
+              alignment: Alignment.center,
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                color: Color.fromARGB(255, 174, 221, 255),
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Table(
+                    border: TableBorder.symmetric(),
+                    columnWidths: {
+                      0: FlexColumnWidth(1),
+                    },
+                    children: [
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    'Staseis Corsa',
+                                    style: TextStyle(
+                                      fontSize: 45,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                )),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Card(
+                                          elevation: 25,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text('Agios Andreas',
+                                                style: TextStyle(fontSize: 30)),
+                                          ),
+                                        )))),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Card(
+                                          elevation: 25,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text('Korinthou-Favierou',
+                                                style: TextStyle(fontSize: 30)),
+                                          ),
+                                        )))),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Card(
+                                          elevation: 25,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text('Korinthou',
+                                                style: TextStyle(fontSize: 30)),
+                                          ),
+                                        )))),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Card(
+                                          elevation: 25,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text('Ceid',
+                                                style: TextStyle(fontSize: 30)),
+                                          ),
+                                        )))),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )),
+            Padding(
+              padding: EdgeInsets.only(left: 20, bottom: 20),
+              child: Row(children: [
+                Card(
+                  elevation: 25,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  color: Color.fromARGB(255, 246, 246, 255),
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text('Payment method :☕')),
+                )
+              ]),
+            )
           ]),
     );
   }

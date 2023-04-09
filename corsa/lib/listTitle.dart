@@ -9,17 +9,19 @@ class ListTitle extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.45,
+        width: MediaQuery.of(context).size.width ,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Align(
                 alignment: Alignment.center,
                 child: ListTile(
-                    title: Text(
-                  'Total Rides Leaderboard',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ))),
+                    title: FittedBox(
+                      child: Text(
+                                      'Total Rides Leaderboard',
+                                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                    ),
+                    ))),
           ],
         ),
       ),
