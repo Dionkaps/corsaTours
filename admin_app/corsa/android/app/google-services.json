@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "15861742737",
+    "project_id": "corsa-6719e",
+    "storage_bucket": "corsa-6719e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15861742737:android:1c822db8615398c6369330",
+        "android_client_info": {
+          "package_name": "com.example.corsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15861742737-5oo69nuc6v32rvra1d761sudjrhbb973.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxNHzHrSVoTqD2a8IVR_ZysGqbejqDHqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15861742737-5oo69nuc6v32rvra1d761sudjrhbb973.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
