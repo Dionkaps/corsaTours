@@ -1,6 +1,6 @@
 # corsaTours Seat Picker App 🚗
 
-Welcome to corsaTours, a mobile application developed with Flutter. corsaTours is a seat picker app designed to streamline the process of deciding who gets a seat in your friend's car for the university commute. Say goodbye to arguments and last-minute decisions—corsaTours allows everyone to pick a seat conveniently using Firebase for real-time updates.
+Welcome to corsaTours, a mobile application developed with Flutter. corsaTours is a seat picker app designed to streamline the process of deciding who gets a seat in my friend's car for the university commute. Say goodbye to arguments and last-minute decisions—corsaTours allows everyone to pick a seat conveniently using Firebase for real-time updates.
 
 ## Key Features:
 
