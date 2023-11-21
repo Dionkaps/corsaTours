@@ -12,7 +12,3 @@ corsaTours leverages Firebase to provide real-time updates on seat availability.
 
 ### 3. Bus Option 🚌
 In case all the seats are booked, corsaTours encourages users to consider alternative transportation by providing information about bus options.
-
-## Getting Started:
-
-1. **Clone the Repository:**
